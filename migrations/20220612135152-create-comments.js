@@ -17,6 +17,15 @@ module.exports = {
           key: 'id'
         },
       },
+      complaintId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Complaints'
+          },
+          key: 'id'
+        },
+      },
       companyId: {
         type: Sequelize.INTEGER,
         references: {

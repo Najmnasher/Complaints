@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       models.Complaint.belongsTo(models.User, {
         foreignKey: 'userId'
       })
+      models.Complaint.belongsTo(models.Company, {
+        foreignKey: 'userId'
+      })
+      models.Complaint.hasMany(models.Comment, {
+        foreignKey: 'companyId'
+      })
     }
   }
   Complaint.init({
