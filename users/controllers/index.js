@@ -40,13 +40,18 @@ const signUp = async (req, res, next) => {
 const signIn = async (req, res, next) => {
     var email = req?.body?.email
     var password = req?.body?.password
-    const user = await models.User.findOne({
+    let user = await models.User.findOne({
         where: {
             email
         }
     })
     if (user) {
+        ///////////////////////////////////////////////////
         if (authService.comparePasswords(password, user.password)) {
+            user = {
+                ...user, 
+                type: 'user'
+            }
             res.send(successResponse('', [], {token: authService.signUser(user)}))
         } else {
             res.send(errorResponse('Password is wrong'))

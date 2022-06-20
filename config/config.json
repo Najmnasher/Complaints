@@ -4,7 +4,9 @@
     "password": "Najm2001",
     "database": "complaints",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "define" : {"timestamps" : false},
+    "opreatorsAliases" : false
   },
   "test": {
     "username": "root",
