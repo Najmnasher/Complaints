@@ -15,6 +15,7 @@ var authService = {
     verifyToken: (token) => {  // decoding token
         try {
             const decodedData = jwt.verify(token, '54IK?Vz/,RT]%,$')
+            console.log(decodedData)
             return (decodedData?.id) ? decodedData : false
         } catch(e) {
             return false

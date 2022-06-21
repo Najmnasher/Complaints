@@ -1,34 +1,7 @@
-const { errorResponse, successResponse } = require('../../helpers/response')
-const models = require('../../models')
-const { Op } = require("sequelize")
-const authService = require('../../services/auth')
-
-
-const signIn = async (req, res, next) => {
-    var nameOremail = req?.body?.nameOremail
-    var password = req?.body?.password
-    let company = await models.Company.findOne({
-        where: {
-            [Op.or] : [
-                {email : nameOremail},
-                {name : nameOremail}
-            ]
-        }
-    })////////////////////////////////////////////////
-    if (company) {
-        if (authService.comparePasswords(password, company.password)) {
-            company = {
-                ...company, 
-                type: 'company'
-            }
-            res.send(successResponse('', [], {token: authService.signUser(company)}))
-        } else {
-            res.send(errorResponse('Password is wrong'))
-        }
-    } else {
-        res.send(errorResponse('email or name is wrong'))
-    }
-}
+const { successResponse , errorResponse } = require("../helpers/response")
+const models = require('../models')
+const authService = require("../services/auth")
+const{ Op  }=require('sequelize')
 
 async function getCompanies (req, res) {
     const companies = await models.Company.findAll({})
@@ -39,7 +12,7 @@ async function getCompanies (req, res) {
     }
 }
 
-const signUp = async (req, res, next) => {
+const setCompany = async (req, res, next) => {
     const name = req?.body?.name
     const categoryId = req?.body?.categoryId
     const email = req?.body?.email
@@ -95,9 +68,7 @@ const signUp = async (req, res, next) => {
 }
 
 
-
-module.exports = {
-    signUp,
-    signIn,
-    getCompanies
+module.exports={
+    getCompanies,
+    setCompany
 }
