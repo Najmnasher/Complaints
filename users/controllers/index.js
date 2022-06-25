@@ -9,9 +9,7 @@ const signUp = async (req, res, next) => {
     const email = req?.body?.email
     const username = req?.body?.username
     const password = req?.body?.password
-    if (username?.length < 4) {
-        return res.send(errorResponse('Username is invalid'))
-    }
+    
     if (password?.length < 4) {
         return res.send(errorResponse('Password is invalid'))
     }
@@ -46,7 +44,6 @@ const signIn = async (req, res, next) => {
         }
     })
     if (user) {
-        ///////////////////////////////////////////////////
         if (authService.comparePasswords(password, user.password)) {
             user = {
                 ...user, 

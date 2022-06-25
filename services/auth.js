@@ -2,21 +2,20 @@ var bcryptjs = require('bcryptjs')
 var jwt = require('jsonwebtoken')
 
 var authService = {
-    signUser: function(user) {  // create token  incoding 
+    signUser: function(user, type = 'user') {  // create token  incoding 
         const token = jwt.sign({
             id: user.dataValues.id,
             name: user.dataValues.name,
-            email: user.dataValues.email
+            email: user.dataValues.email,
+            type: type == 'admin' ? 'admin' : 'user'
         }, '54IK?Vz/,RT]%,$', {
-            expiresIn: '10h'
+            expiresIn: '1000h'
         })
         return token
     },
     verifyToken: (token) => {  // decoding token
         try {
-            console.log(token)
             const decodedData = jwt.verify(token, '54IK?Vz/,RT]%,$')
-            console.log(decodedData, "wwwww")
             return (decodedData?.id) ? decodedData : false
         } catch(e) {
             return false

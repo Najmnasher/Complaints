@@ -40,9 +40,28 @@ const destroy = async (req, res, next) => {
 
 }
 
-
+const signIn = async (req, res, next) => {
+    const { email, password } = req.body
+    const admin = await models.Admin.findOne({
+        where: {
+            email: email
+        }
+    })
+    if (admin) {
+        if (authService.comparePasswords(password, admin.password)) {
+            return res.send(successResponse(null, null, {
+                token: authService.signUser(admin, 'admin')
+            }))
+        } else {
+            return res.send(errorResponse(['Password is invalid']))
+        }
+    } else {
+        return res.send(errorResponse(['Email is invalid']))
+    }
+}
 
 module.exports = {
     store,
-    destroy
+    destroy,
+    signIn
 }

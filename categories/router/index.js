@@ -1,4 +1,5 @@
 var express = require('express');
+const { isAdmin } = require('../../middlewares/isAdmin');
 const { index, store, show, update, destroy } = require('../controllers');
 var router = express.Router();
 
@@ -9,13 +10,13 @@ router.get('/', index)
 router.get('/:id', show)
 
 // Add new category
-router.post('/', store)
+router.post('/', isAdmin, store)
 
 // Edit category
-router.put('/:id', update)
+router.put('/:id', isAdmin, update)
 
 // Delete category
-router.delete('/:id', destroy)
+router.delete('/:id', isAdmin, destroy)
 
 
 module.exports = router;

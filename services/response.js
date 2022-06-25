@@ -1,8 +1,9 @@
-const successResponse = (data = [], messages = []) => {
+const successResponse = (data = [], messages = [], extra = {}) => {
     return {
         success: true,
         data: data,
-        messages: messages
+        messages: messages,
+        ...extra
     }
 }
 
