@@ -7,7 +7,7 @@ var authService = {
             id: user.dataValues.id,
             name: user.dataValues.name,
             email: user.dataValues.email,
-            type: type == 'admin' ? 'admin' : 'user'
+            type: type
         }, '54IK?Vz/,RT]%,$', {
             expiresIn: '1000h'
         })
