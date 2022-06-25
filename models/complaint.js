@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId'
       })
       models.Complaint.belongsTo(models.Company, {
-        foreignKey: 'userId'
+        foreignKey: 'companyId'
       })
       models.Complaint.hasMany(models.Comment, {
         foreignKey: 'companyId'

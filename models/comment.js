@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       models.Comment.belongsTo(models.Company, {
         foreignKey: 'companyId'
       })
+      models.Comment.belongsTo(models.Complaint, {
+        foreignKey: 'complaintId'
+      })
     }
   }
   Comment.init({

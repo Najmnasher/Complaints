@@ -5,6 +5,6 @@ const { isAuthenticated }= require('../../middlewares/isAuthenticated')
 
 router.post('/signup', signUp);
 router.post('/signin', signIn);
-router.get('/',isAuthenticated ,getCompanies);
+router.get('/', getCompanies);
 
 module.exports = router;
