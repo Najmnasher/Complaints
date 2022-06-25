@@ -25,9 +25,27 @@ const store = async (req, res, next) => {
     }
 }
 
-const destroy = async () => {
-    
+const destroy = async (req, res, next) => {
+    const id = req.params.id
+    const admin = await models.Admin.findByPk(id)
+    if (admin) {
+        const deleting = await admin.destroy()
+        if (deleting) {
+            return res.send({
+                success: true,
+                messages: ['Admin has been deleted']
+            })
+        }
+    } else {
+        return res.send({
+            success: false,
+            messages: ['Admin not found']
+        })
+    }
+
 }
+
+
 
 module.exports = {
     store,
