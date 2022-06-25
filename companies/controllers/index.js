@@ -21,7 +21,7 @@ const signIn = async (req, res, next) => {
                 ...company, 
                 type: 'company'
             }
-            res.send(successResponse('', [], {token: authService.signUser(company)}))
+            res.send(successResponse('', [], {token: authService.signUser(company,'company')}))
         } else {
             res.send(errorResponse('Password is wrong'))
         }
