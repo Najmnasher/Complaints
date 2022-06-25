@@ -1,35 +1,22 @@
 const models = require('../../models')
+const { successResponse, errorResponse } = require('../../services/response')
 
 const index = async (req, res, next) => {
     const categories = await models.Category.findAll()
     if (categories) {
-        res.send({
-            success: true,
-            data: categories,
-            messages: []
-        })
+        res.send(successResponse(categories))
     } else {
-        res.send({
-            success: true,
-            data: [],
-            messages: ['We do not have categories']
-        })
+        res.send(errorResponse(['We do not have categories']))
     }
 }
 
 const store = async (req, res, next) => {
     const name = (req?.body?.name)
     if (typeof name == 'undefined') {
-        return res.send({
-            success: false,
-            messages: ['Please provide a name']
-        })
+        return res.send(errorResponse(['Please provide a name']))
     }
     if (name?.length < 2) {
-        return res.send({
-            success: false,
-            messages: ['Name is too short']
-        })
+        return res.send(errorResponse(['Name is too short']))
     }
     const [category, created] = await models.Category.findOrCreate({
         where: {

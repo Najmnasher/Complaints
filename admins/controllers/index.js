@@ -1,5 +1,6 @@
 const models = require('../../models')
 const authService = require('../../services/auth')
+const { successResponse, errorResponse } = require('../../services/response')
 
 const store = async (req, res, next) => {
     const { name, email, password} = req.body
@@ -13,15 +14,9 @@ const store = async (req, res, next) => {
         }
     })
     if (created) {
-        return res.send({
-            success: true,
-            messages: ['Admin has been created']
-        })
+        return res.send(successResponse([], ['Admin has been created']))
     } else {
-        return res.send({
-            success: false,
-            messages: ['Admin is duplicated']
-        })
+        return res.send(errorResponse(['Admin is duplicated']))
     }
 }
 
