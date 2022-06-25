@@ -24,15 +24,9 @@ const store = async (req, res, next) => {
         }
     })
     if (created) {
-        return res.send({
-            success: true,
-            messages: ['Category has been created']
-        })
+        return res.send(successResponse(['Category has been created']))
     } else {
-        return res.send({
-            success: false,
-            messages: ['Category is duplicated']
-        })
+        return res.send(errorResponse(['Category is duplicated']))
     }
 }
 
@@ -40,15 +34,9 @@ const show = async (req, res, next) => {
     const id = req.params.id
     const category = await models.Category.findByPk(id)
     if (category) {
-        return res.send({
-            success: true,
-            data: category
-        })
+        return res.send(successResponse(category))
     } else {
-        return res.send({
-            success: false,
-            messages: ['Category not found']
-        })
+        return res.send(errorResponse(['Category not found']))
     }
 }
 
@@ -61,15 +49,9 @@ const update = async (req, res, next) => {
             category.name = name
         }
         const cat = await category.save()
-        return res.send({
-            success: true,
-            data: cat
-        })
+        return res.send(successResponse(cat))
     } else {
-        return res.send({
-            success: false,
-            messages: ['Category not found']
-        })
+        return res.send(errorResponse(['Category not found']))
     }
 }
 
@@ -79,16 +61,10 @@ const destroy = async (req, res, next) => {
     if (category) {
         const deleting = await category.destroy()
         if (deleting) {
-            return res.send({
-                success: true,
-                messages: ['Category has been deleted']
-            })
+            return res.send(successResponse(['Category has been deleted']))
         }
     } else {
-        return res.send({
-            success: false,
-            messages: ['Category not found']
-        })
+        return res.send(errorResponse(['Category not found']))
     }
 
 }
