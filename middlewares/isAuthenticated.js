@@ -1,6 +1,6 @@
 const authService = require('../services/auth');
 
-exports.isAuthenticated = async function(req, res, next) {
+const isAuthenticated = async function(req, res, next) {
     const token = req.headers?.authorization?.split(' ')[1]
     const isVerfied = await authService.verifyToken(token);
     console.log('isVerfied', isVerfied)
@@ -16,4 +16,8 @@ exports.isAuthenticated = async function(req, res, next) {
         ]
     })
     return 
+}
+
+module.exports = {
+    isAuthenticated
 }

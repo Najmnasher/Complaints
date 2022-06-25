@@ -43,7 +43,7 @@ const signUp = async (req, res, next) => {
     const name = req?.body?.name
     const categoryId = req?.body?.categoryId
     const email = req?.body?.email
-    const phone = req?.body?.name
+    const phone = req?.body?.phone
     const address = req?.body?.address
     const password = req?.body?.password
     const about = req?.body?.about
@@ -51,9 +51,6 @@ const signUp = async (req, res, next) => {
 
     if (name?.length < 4) {
         return res.send(errorResponse('name is invalid'))
-    }
-    if (!categoryId) {
-        return res.send(errorResponse('categoryId is invalid'))
     }
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) === false) {
         return res.send(errorResponse('Email is invalid'))

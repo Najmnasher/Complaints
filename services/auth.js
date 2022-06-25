@@ -4,9 +4,9 @@ var jwt = require('jsonwebtoken')
 var authService = {
     signUser: function(user) {  // create token  incoding 
         const token = jwt.sign({
-            id: user.id,
-            username: user.username,
-            email: user.email
+            id: user.dataValues.id,
+            name: user.dataValues.name,
+            email: user.dataValues.email
         }, '54IK?Vz/,RT]%,$', {
             expiresIn: '10h'
         })
@@ -14,8 +14,9 @@ var authService = {
     },
     verifyToken: (token) => {  // decoding token
         try {
+            console.log(token)
             const decodedData = jwt.verify(token, '54IK?Vz/,RT]%,$')
-            console.log(decodedData)
+            console.log(decodedData, "wwwww")
             return (decodedData?.id) ? decodedData : false
         } catch(e) {
             return false
