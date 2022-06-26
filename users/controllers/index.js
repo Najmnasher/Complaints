@@ -18,10 +18,7 @@ const signUp = async (req, res, next) => {
     }
     const [user, created] = await models.User.findOrCreate({
         where: {
-            [Op.or]: [
-                { username },
-                { email }
-            ]
+            email
         },
         defaults: {
             password: authService.hashPassword(password),
@@ -49,7 +46,7 @@ const signIn = async (req, res, next) => {
                 ...user, 
                 type: 'user'
             }
-            res.send(successResponse('', [], {token: authService.signUser(user)}))
+            res.send(successResponse('', [], {token: authService.signUser(user, 'user')}))
         } else {
             res.send(errorResponse('Password is wrong'))
         }

@@ -6,7 +6,7 @@ const isUser = (req, res, next) => {
     if (token) {
         const decodedData = authService.verifyToken(token)
         if (decodedData.type == 'user') {
-            req.admin = decodedData
+            req.user = decodedData
             return next()
         } else {
             return res.send(errorResponse(['You are not authorized to do this']))

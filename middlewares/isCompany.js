@@ -6,7 +6,7 @@ const isCompany = (req, res, next) => {
     if (token) {
         const decodedData = authService.verifyToken(token)
         if (decodedData.type == 'company') {
-            req.admin = decodedData
+            req.company = decodedData
             return next()
         } else {
             return res.send(errorResponse(['You are not authorized to do this']))

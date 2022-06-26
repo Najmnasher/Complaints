@@ -5,14 +5,11 @@ const authService = require('../../services/auth')
 
 
 const signIn = async (req, res, next) => {
-    var nameOremail = req?.body?.nameOremail
+    var email = req?.body?.email
     var password = req?.body?.password
     let company = await models.Company.findOne({
         where: {
-            [Op.or] : [
-                {email : nameOremail},
-                {name : nameOremail}
-            ]
+            email
         }
     })////////////////////////////////////////////////
     if (company) {
@@ -21,7 +18,7 @@ const signIn = async (req, res, next) => {
                 ...company, 
                 type: 'company'
             }
-            res.send(successResponse('', [], {token: authService.signUser(company,'company')}))
+            res.send(successResponse('', [], {token: authService.signUser(company, 'company')}))
         } else {
             res.send(errorResponse('Password is wrong'))
         }
