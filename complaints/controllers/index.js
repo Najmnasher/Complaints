@@ -1,5 +1,34 @@
 const models = require('../../models');
-const { errorResponse, successResponse } = require('../../services/response')
+const { errorResponse, successResponse } = require('../../services/response');
+const { complaintsTransformer } = require('../transformers');
+
+const index = async(req, res) => {
+    const complaints = await models.Complaint.findAll({
+        include: [
+            models.User,
+            models.Company,
+        ]
+    })
+    if (complaints) {
+        return res.send(successResponse(complaintsTransformer(complaints)))
+    }
+    return res.send(errorResponse('No data found'))
+}
+
+const show = async (req, res) => {
+    const { id } = req.params
+    const complaint = await models.Complaint.findByPk(id, {
+        include: [
+            models.User,
+            models.Company,
+            models.Comment
+        ]
+    })
+    if (complaint) {
+        return res.send(successResponse(complaint))
+    }
+    return res.send(errorResponse('Complaint not found'))
+}
 
 const store = async (req, res, next) => {
     const { title, details, companyId } = req?.body;
@@ -46,6 +75,8 @@ const changeStatus = async (req, res, next) => {
 
 
 module.exports = {
+    index,
+    show,
     store,
     verify,
     changeStatus

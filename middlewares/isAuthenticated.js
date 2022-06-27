@@ -3,7 +3,6 @@ const authService = require('../services/auth');
 const isAuthenticated = async function(req, res, next) {
     const token = req.headers?.authorization?.split(' ')[1]
     const isVerfied = await authService.verifyToken(token);
-    console.log('isVerfied', isVerfied)
     if (isVerfied) {
         req.user = isVerfied
         return next()
